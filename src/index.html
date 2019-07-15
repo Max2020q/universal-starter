@@ -1,17 +1,403 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hello, WebVR! • A-Frame</title>
-    <meta name="description" content="Hello, WebVR! • A-Frame">
-    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene background="color: #FAFAFA">
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9" shadow></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E" shadow></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" shadow></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane>
-    </a-scene>
-  </body>
+<a-scene
+ stats="false"
+ physics="gravity:0"
+ fog=" 
+  color: white;
+  density: 0.00; 
+  type: exponential;"  
+ vr-mode-ui="enabled: false">
+  
+  <!------3D Model-------->
+  <a-entity 
+    id="Model"
+    scale="5 5 5"
+    rotation="0 0 0"
+    position="2 -1 -27" 
+    camera-cube-env="resolution:100;"
+    animation-mixer="timeScale: 1.000"
+    gltf-model="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fsoldier.glb?alt=media&token=6f29bd2c-ba58-4b71-a426-29dd573f87e3"
+    nav-agent="speed: 1.5"
+    static-body>
+  </a-entity>
+
+	<!-------3D World-------->
+	<a-entity 
+    id="World" 
+	  shadow
+    scale="5 1 5" 
+    rotation="0 0 0" 
+    position="0 0 4" gltf-model="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fnavmesh%20(6).gltf?alt=media&token=985c3bc1-6b5e-4b6b-b4c6-6ea313ec3f7d">
+	</a-entity>
+    
+	<!----Game Navigation------>
+	<a-entity 
+    id="NavMesh" 
+	  nav-mesh
+    visible="false" 
+    scale="5 5 5" 
+    rotation="0 0 0" 
+    position="0 0 4" gltf-model="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fnavmesh%20(6).gltf?alt=media&token=985c3bc1-6b5e-4b6b-b4c6-6ea313ec3f7d">
+	</a-entity>
+
+	<!----Scene Camera----->
+	<a-entity 
+    id="rig" 
+    kinematic-body
+    movement-controls="speed:0.16" 
+    position="0 3 -6">
+		<a-entity 
+      camera 
+      position="0 1 0" 
+      player-controls 
+      mouse-cursor 
+      cursor="rayOrgin:mouse" 
+      touch-look-controls>
+			<a-cursor
+       mouse-cursor>
+			</a-cursor>
+		</a-entity>
+	</a-entity>
+
+	<!----3D Lighting------>
+	<a-light 
+    id="Light_World" 
+    color="white" 
+    intensity="1" 
+    type="hemisphere">
+	</a-light>
+
+	<a-light 
+    id="Light_Level" 
+    scale="1 1 1" 
+    position="2 10 4" 
+    rotation="0 0 0" 
+    intensity="1" 
+    color="white" type="directional">
+	</a-light>
+
+	<!-------3D Skybox-------->
+	<a-sky 
+    id="sky" 
+    src=""
+    material=" 
+        side: back; 
+        shader: skyshader; 
+        sunPosition: 17 41 27;">
+	</a-sky>
+
+
+	<!-----2D Character------>
+	<a-entity 
+    id="Character2D" 
+    position="0 .5 -14" nav-agent="speed: 1.5" sprite-particles="
+        scale:  10; 
+        textureCount: 1;
+        TextureLoop: 1;
+        enableInEditor:  true;  
+        spawnType:  burst;
+        textureFrame: 3 6;
+        texture: https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Ftumblr_npuxsqaKaC1tbahjdo1_1280.png?alt=media&token=85426316-2bf4-4ae1-ba2c-395089a1c1e2;">
+	</a-entity>
+
+  <!----Animated Shader-------> 
+  <a-entity 
+    id="Visual"
+    scale="10 10 10"
+    rotation="0 0 0"
+    position="-5 25 2"
+    camera-cube-env="resolution:200;"
+    geometry="primitive:box;"
+    gltf-model=""
+    navigate-on-click="url: http://google.com"
+    animation__custom="
+      property: rotation;
+      dir: normal; 
+      dur: 40000;
+      easing: easeInSine; 
+      loop: true; 
+      to: 0 720 0"
+    nav-agent="speed: 1.5"
+    static-body>
+  </a-entity>
+  
+
+  <!---Special Effects----> 
+  <a-entity 
+  id="Effect_2" 
+  position="1 45 10" 
+  rotation="10 -28 0" 
+  scale="10 2 13" 
+  sprite-particles=" 
+    texture: https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fk.png?alt=media&amp;token=393a08e4-4590-41a2-bc33-2429866ea064; 
+    textureFrame: 1 1; 
+    textureLoop: 18;
+    opacity: 0,.1,0; 
+    scale: 70,70; 
+    spawnRate: 3; 
+    lifeTime: 19; 
+    angularVelocity: 1 9 0;
+    angularAcceleration: 0 0 0;
+    ribbonUVType: interval; 
+    ribbonShape: taper; 
+    blending: additive; 
+    ribbonWidth: 0; 
+    enableInEditor: true; 
+    velocity: -.1 -.05 -.1 .. .1 .05 .1; 
+    position: -1 0 -1..1 0 1;
+    fog: false;">
+  </a-entity>
+
+
+  <!------3D Sound-------> 
+  <a-resonance-audio-room 
+  id="Audio" 
+  width="10" 
+  height="10" 
+  depth="10" 
+  material="
+    transparent: true; 
+    visible: false;" 
+  position="0 0 0" 
+  rotation="0 0 0" 
+  scale="0 0 0">
+    
+  <a-entity 
+    id="AudioSound" 
+    sound="
+    autoplay: true; 
+    src: url(Enter Audio Sound .mp3 Here);"
+    geometry="primitive: box"
+    material="
+    transparent: true;
+    visible: false;"
+    position="0 0 0" 
+    rotation="0 0 0"    
+    scale="0 0 0">
+  </a-entity>
+
+  <a-entity 
+    id="AudioLeft"           
+    resonance-audio-src="
+    src: Enter Left Audio Sound Here;
+    channel: left;
+    maxDistance: 40;
+    sharpness: 2;
+    alpha: 0.5;
+    gain: 2;"         
+    material="
+    transparent: true;
+    visible: false;"           
+    position="0 0 0" 
+    rotation="0 0 0" 
+    scale="0 0 0">
+  </a-entity>
+
+  <a-entity 
+    id="AudioRight"           
+    resonance-audio-src="
+    src: Enter Right Audio Sound Here;
+    channel: right; 
+    maxDistance: 40;
+    sharpness: 2; 
+    alpha: 0.5;
+    gain: 2;"        
+    material="
+    transparent: true;
+    visible: false;"           
+    position="0 0 0" 
+    rotation="0 0 0" 
+    scale="0 0 0">
+  </a-entity> 
+  </a-resonance-audio-room>
+
+  
+  <!----Sound & Audio-----> 
+  <!--
+  - AUDIO PLAYBACK
+  - Move this commented section above the scene
+  - Insert MP3 inside "ENTER MP3 HERE" 
+  - Uncomment the section then play audio.
+
+  <div id="$main" style="display:'';">
+    <div id="waveform"></div>
+  </div>
+  
+  <script>
+    window.wavesurfer = undefined;
+    if(wavesurfer) wavesurfer.destroy();
+    window.wavesurfer = WaveSurfer.create({
+      container: '#waveform',
+      waveColor: 'lightgrey',
+      progressColor: 'gray',
+      height: 20,
+      normalize: true,
+      // partialRender: true,
+      responsive: true,
+    });
+    wavesurfer.load('ENTER MP3 HERE');
+
+    async function play() {
+        wavesurfer.playPause();
+    }
+    wavesurfer.on('ready', function () {
+      $status.innerHTML = "";
+      wavesurfer.pause();
+      // wavesurfer.play();
+    });
+  </script>
+-->
+ 
+</a-scene>
+
+
+<script>
+  console.log("Hello World!");
+  AFRAME.registerComponent('player-controls', { init: function() {
+      const el = this.el;
+
+      // Choose a character to control
+      const player = el.sceneEl.querySelector('#Character2D')
+
+      // On Click - Move the Player to the target location.
+      el.addEventListener('click', (e) => {
+        player.setAttribute('nav-agent', {
+          active: true,
+          destination: e.detail.intersection.point
+        });
+      });
+
+      // When Player moves and navigation starts, play animation
+      player.addEventListener('navigation-start', ()  => {
+        player.setAttribute('sprite-particles', {
+          textureCount: 16
+        });
+      });
+
+      // When Player navigation ends, change animation.
+      player.addEventListener('navigation-end', () => {
+        player.setAttribute('sprite-particles', {
+          textureCount: 1
+        });
+      });
+
+      // When cursor hovering over the nav mesh, change cursor.
+      el.addEventListener('mouseenter', () => {
+        el.setAttribute('material', {
+          color: 'silver'
+        });
+      });
+
+      // When cursor not hovering over the nav mesh, change cursor.
+      el.addEventListener('mouseleave', () => {
+        el.setAttribute('material', {
+          color: 'black'
+        })
+      });
+
+      // Refresh the raycaster after models load.
+      el.sceneEl.addEventListener('object3dset', () => {
+        this.el.components.raycaster.refreshObjects();
+      });
+    }
+  });
+</script>
+
+          <head>
+            <title> Scene. </title> 
+	          <link rel="shortcut icon" href="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/Icons%2Ffavicon.ico?alt=media&token=c8d453c0-5f17-4c66-b53f-0be770e00ae4"/>
+            <meta name="theme-color" content="#fff">
+
+            <!--AFRAME-->
+            <!--SCROLL DOWN--> 
+
+            <script src="https://cdn.jsdelivr.net/npm/sesh-aframe4@0.8.2/dist/aframe-master.min.js"></script>
+            <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v5.1.0/dist/aframe-extras.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/aframe-sesh-extras@1.0.2/aframe-sesh-extras.js"></script>
+
+            <!--UTILITIES-->
+            <!--SCROLL DOWN--> 
+            
+            <link rel="stylesheet" type="text/css" href="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/0_Packages%2Floading-bar.css?alt=media&token=9d43a435-ceae-4056-9617-ede6eb8a09e5"/>
+            <script type="text/javascript" src="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/0_Packages%2Floading-bar.js?alt=media&token=78873d55-54f7-439a-955b-ac7ab82ce9bc"></script>
+            <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
+            <script src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
+            <script src="https://rawgit.com/Utopiah/aframe-persist-component/master/aframe-persist-component.js"></script>  
+            <script src="https://unpkg.com/aframe-haptics-component/dist/aframe-haptics-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-debug-cursor-component/dist/aframe-debug-cursor-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
+             
+            <!--SCROLL DOWN-->
+            
+            <script src="https://morandd.github.io/dans-aframe-camera-juggler/dans-camera-juggler.js"></script>
+            <script src="https://unpkg.com/aframe-atlas-uvs-component@^1.0.0/dist/aframe-atlas-uvs-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
+            <script src="https://rawgit.com/chenzlabs/stats-in-vr/master/dist/aframe-stats-in-vr-component.min.js"></script>
+            
+            <!--KEEP SCROLLING-->
+
+            <script 
+            src="https://unpkg.com/aframe-log-component/dist/aframe-log-component.min.js"></script> 
+            <script src="https://rawgit.com/Ctrl-Alt-Zen/aframe-mobile-controls/master/components/tilt-turn/tilt-turn.js"></script>
+            <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-state-component@1.8.0/dist/aframe-state-component.min.js"></script>
+            <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+
+            <!--SCROLL DOWN--> 
+
+            <script src="https://morandd.github.io/aframe-multitouch-look-controls/multitouch-look-controls.js"></script>
+            <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+            <script src="https://unpkg.com/aframe-location-persistance-component/dist/aframe-location-persistance-component.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/aframe-mouse-controls@1.0.6/index.min.js"></script>
+
+            <!--MODELING-->
+            <!--SCROLL DOWN-->
+
+            <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
+            <script src="https://unpkg.com/aframe-mirror-component/dist/aframe-mirror-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> 
+            <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/aframe-shaders/aframe-shader-frog.js"></script>
+            <script src="https://unpkg.com/aframe-raytrace-component/dist/aframe-raytrace-component.min.js"></script>
+            
+            <!--ANIMATION-->
+            <!--SCROLL DOWN-->
+
+            <script src="https://rawgit.com/atomicguy/aframe-fence-component/master/dist/aframe-fence-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-entity-generator-component@^3.0.0/dist/aframe-entity-generator-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-motion-capture-components/dist/aframe-motion-capture-components.min.js"></script>
+            <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script> 
+            <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/aframe-super-shooter-kit@1.1.7/dist/aframe-super-shooter-kit.min.js"></script>
+            <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
+            <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
+            <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+            <script src="https://rawgit.com/gmarty/aframe-ui-components/master/dist/aframe-ui-components.min.js"></script> 
+
+            <!--PARTICLES-->
+            <!--SCROLL DOWN-->
+
+            <script src="https://unpkg.com/aframe-point-component/dist/aframe-point-component.min.js"></script>
+            <script src="https://unpkg.com/aframe-sprite-particles-component@^0.5.0/aframe-sprite-particles-component.js"></script>
+            <script src="https://unpkg.com/aframe-particleplayer-component/dist/aframe-particleplayer-component.min.js"></script>
+            <script src="https://rawgit.com/takahirox/aframe-rain/master/build/aframe-rain.min.js"></script>
+            <script src="https://unpkg.com/aframe-mesh-particles-component@^0.4.0/aframe-mesh-particles-component.js"></script> 
+            
+            <!--AUDIO-->
+            <!--SCROLL DOWN-->
+
+            <script src="https://unpkg.com/aframe-audioanalyser-component@^3.0.3/dist/aframe-audioanalyser-component.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/resonance-audio/build/resonance-audio.miX zx n.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/aframe-sesh-audio@0.3.0/components/noah-ra-room.min.js"></script>
+            <script src="https://cdn.rawgit.com/noahneumark/aframe-resonance-audio/fe37437/components/noah-ra-src.min.js"></script>
+  
+            <!--KEEP SCROLLING-->
+            
+            <script src="https://cdn.rawgit.com/noahneumark/aframe-resonance-audio/fe37437/components/noah-ra-beatsync.min.js"></script>
+            <script src="https://unpkg.com/wavesurfer.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.6/wavesurfer.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.6/plugin/wavesurfer.regions.min.js"></script>
+          </head>
+
 </html>
