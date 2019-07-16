@@ -1,3 +1,9 @@
+
+
+<!--Press Shift to Edit-->
+
+<!--Code Scene to Save-->
+
 <!------3D Scene-------->
 <a-scene
  stats="false"
@@ -7,8 +13,18 @@
   density: 0.00; 
   type: exponential;"  
  vr-mode-ui="enabled: false">
+
+	<!-------3D Skybox-------->
+	<a-sky 
+    src=""
+    id="sky" 
+    material=" 
+      side: back; 
+      shader: skyshader; 
+      sunPosition: 17 41 27;">
+	</a-sky>
   
-  <!------3D Model-------->
+  <!------3D Character-------->
   <a-entity 
     id="Model"
     scale="5 5 5"
@@ -21,15 +37,14 @@
     static-body>
   </a-entity>
 
-	<!-------3D Skybox-------->
-	<a-sky 
-    src=""
-    id="sky" 
-    material=" 
-      side: back; 
-      shader: skyshader; 
-      sunPosition: 17 41 27;">
-	</a-sky>
+	<!-------Model World-------->
+  <a-entity 
+    id="World" 
+    shadow
+    scale="5 1 5" 
+    rotation="0 0 0" 
+    position="0 0 4" gltf-model="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fnavmesh%20(6).gltf?alt=media&token=985c3bc1-6b5e-4b6b-b4c6-6ea313ec3f7d">
+  </a-entity>
 	
 	<!----3D Lighting------>
 	<a-light 
@@ -58,15 +73,6 @@
     rotation="0 0 0" 
     position="0 0 4" gltf-model="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fnavmesh%20(6).gltf?alt=media&token=985c3bc1-6b5e-4b6b-b4c6-6ea313ec3f7d">
 	</a-entity>
-	
-	<!-------Game World-------->
-	  <a-entity 
-	    id="World" 
-	    shadow
-	    scale="5 1 5" 
-	    rotation="0 0 0" 
-	    position="0 0 4" gltf-model="https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Fnavmesh%20(6).gltf?alt=media&token=985c3bc1-6b5e-4b6b-b4c6-6ea313ec3f7d">
-	  </a-entity>
 
 	<!----Scene Camera----->
 	<a-entity 
@@ -86,42 +92,6 @@
 			      </a-cursor>
 	    </a-entity>
 	</a-entity>
-
-
-	<!-----2D Character------>
-	<a-entity 
-    id="Character2D" 
-    position="0 .5 -14" nav-agent="speed: 1.5" sprite-particles="
-    scale:  10; 
-    textureCount: 1;
-    TextureLoop: 1;
-    enableInEditor:  true;  
-    spawnType:  burst;
-    textureFrame: 3 6;
-    texture: https://firebasestorage.googleapis.com/v0/b/timbre-d11e2.appspot.com/o/G8xNtAPcsu3Bi2P7IMwW%2Ftumblr_npuxsqaKaC1tbahjdo1_1280.png?alt=media&token=85426316-2bf4-4ae1-ba2c-395089a1c1e2;">
-	</a-entity>
-
-  <!----Animated Shader-------> 
-  <a-entity 
-    id="Visual"
-    scale="10 10 10"
-    rotation="0 0 0"
-    position="-5 25 2"
-    camera-cube-env="resolution:200;"
-    geometry="primitive:box;"
-    gltf-model=""
-    navigate-on-click="url: http://google.com"
-    animation__custom="
-      property: rotation;
-      dir: normal; 
-      dur: 40000;
-      easing: easeInSine; 
-      loop: true; 
-      to: 0 720 0"
-    nav-agent="speed: 1.5"
-    static-body>
-  </a-entity>
-  
 
   <!---Special Effects----> 
   <a-entity 
@@ -148,7 +118,6 @@
       position: -1 0 -1..1 0 1;
       fog: false;">
   </a-entity>
-
 
   <!------3D Sound-------> 
   <a-resonance-audio-room 
@@ -212,6 +181,26 @@
       </a-entity> 
   </a-resonance-audio-room>
 
+  <!----Animated Shader-------> 
+  <a-entity 
+    id="Visual"
+    scale="10 10 10"
+    rotation="0 0 0"
+    position="-5 25 2"
+    camera-cube-env="resolution:200;"
+    geometry="primitive:box;"
+    gltf-model=""
+    navigate-on-click="url: http://google.com"
+    animation__custom="
+      property: rotation;
+      dir: normal; 
+      dur: 40000;
+      easing: easeInSine; 
+      loop: true; 
+      to: 0 720 0"
+    nav-agent="speed: 1.5"
+    static-body>
+  </a-entity>
   
   <!----Sound & Audio-----> 
   <!--
@@ -250,8 +239,7 @@
 -->
 </a-scene>
 
-
-<!------Game Directions------->
+<!------Game Directions------
 <script>
   console.log("Hello World!");
   AFRAME.registerComponent('player-controls', { init: function() {
@@ -303,6 +291,7 @@
     }
   });
 </script>
+--> 
 
           <head>
             <title> Scene. </title> 
