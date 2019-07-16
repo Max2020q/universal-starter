@@ -2,17 +2,25 @@
 
 <!--Press Shift to Edit-->
 
-<!--Code Scene to Save-->
+<!--Design Scene to Save-->
 
 <!------3D Scene-------->
 <a-scene
  stats="false"
+ bloom
  physics="gravity:0"
  fog=" 
   color: white;
   density: 0.00; 
   type: exponential;"  
  vr-mode-ui="enabled: false">
+
+ <!------World Sound-------> 
+ <a-entity 
+    id="sound"
+    position="0 0 0" 
+    sound="src: url( ); autoplay: true; volume: 60; loop: true;">
+  </a-entity>
 
 	<!-------3D Skybox-------->
 	<a-sky 
@@ -201,43 +209,9 @@
     nav-agent="speed: 1.5"
     static-body>
   </a-entity>
-  
-  <!----Sound & Audio-----> 
-  <!--
-  - AUDIO PLAYBACK
-  - Move this commented section above the scene
-  - Insert MP3 inside "ENTER MP3 HERE" 
-  - Uncomment the section then play audio.
-
-  <div id="$main" style="display:'';">
-    <div id="waveform"></div>
-  </div>
-  
-  <script>
-    window.wavesurfer = undefined;
-    if(wavesurfer) wavesurfer.destroy();
-    window.wavesurfer = WaveSurfer.create({
-      container: '#waveform',
-      waveColor: 'lightgrey',
-      progressColor: 'gray',
-      height: 20,
-      normalize: true,
-      // partialRender: true,
-      responsive: true,
-    });
-    wavesurfer.load('ENTER MP3 HERE');
-
-    async function play() {
-        wavesurfer.playPause();
-    }
-    wavesurfer.on('ready', function () {
-      $status.innerHTML = "";
-      wavesurfer.pause();
-      // wavesurfer.play();
-    });
-  </script>
--->
 </a-scene>
+
+
 
 <!------Game Directions------
 <script>
@@ -292,6 +266,10 @@
   });
 </script>
 --> 
+
+
+
+
 
           <head>
             <title> Scene. </title> 
